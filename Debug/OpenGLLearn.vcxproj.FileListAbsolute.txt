@@ -1,0 +1,2 @@
+G:\CppProject\OpenGLLearn\Debug\OpenGLLearn.exe
+G:\CppProject\OpenGLLearn\Debug\OpenGLLearn.pdb
