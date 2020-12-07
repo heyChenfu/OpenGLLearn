@@ -145,6 +145,7 @@
     <ClCompile Include="src\HelloOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CommonFunction.h" />
     <ClInclude Include="src\HelloOpenGL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
