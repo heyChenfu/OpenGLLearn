@@ -143,10 +143,12 @@
   <ItemGroup>
     <ClCompile Include="C:\Users\ingcreations12\Downloads\glad\src\glad.c" />
     <ClCompile Include="src\HelloOpenGL.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CommonFunction.h" />
     <ClInclude Include="src\HelloOpenGL.h" />
+    <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
