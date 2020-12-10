@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\ingcreations12\Downloads\glad\src\glad.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\HelloOpenGL.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -33,6 +33,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_imageImplement.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

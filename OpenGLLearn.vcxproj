@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\ingcreations12\Downloads\glad\src\glad.c" />
+    <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\HelloOpenGL.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
@@ -149,6 +149,8 @@
     <ClInclude Include="src\CommonFunction.h" />
     <ClInclude Include="src\HelloOpenGL.h" />
     <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\stb_image.h" />
+    <ClInclude Include="src\stb_imageImplement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
