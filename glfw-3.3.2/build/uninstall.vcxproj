@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8932637B-1418-32E5-A56C-AADED626B327}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>uninstall</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="F:\glfw-3.3.2\build\CMakeFiles\07b9bad226348679a57db8c9af938614\uninstall.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -P F:/glfw-3.3.2/build/cmake_uninstall.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\glfw-3.3.2\build\CMakeFiles\uninstall</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -P F:/glfw-3.3.2/build/cmake_uninstall.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\glfw-3.3.2\build\CMakeFiles\uninstall</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -P F:/glfw-3.3.2/build/cmake_uninstall.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\glfw-3.3.2\build\CMakeFiles\uninstall</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -P F:/glfw-3.3.2/build/cmake_uninstall.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\glfw-3.3.2\build\CMakeFiles\uninstall</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="F:\glfw-3.3.2\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/glfw-3.3.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -SF:/glfw-3.3.2 -BF:/glfw-3.3.2/build --check-stamp-file F:/glfw-3.3.2/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCommonLanguageInclude.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeDependentOption.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeGenericSystem.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeInitializeConfigs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeLanguageInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakePackageConfigHelpers.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeRCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInitialize.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckCSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckIncludeFile.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckLibraryExists.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\CMakeCommonCompilerMacros.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindDoxygen.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageHandleStandardArgs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageMessage.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindThreads.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\GNUInstallDirs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Internal\CheckSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\WindowsPaths.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\WriteBasicConfigVersionFile.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeRCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeSystem.cmake;F:\glfw-3.3.2\cmake_uninstall.cmake.in;F:\glfw-3.3.2\src\glfw3.pc.in;F:\glfw-3.3.2\src\glfw3Config.cmake.in;F:\glfw-3.3.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\glfw-3.3.2\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/glfw-3.3.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -SF:/glfw-3.3.2 -BF:/glfw-3.3.2/build --check-stamp-file F:/glfw-3.3.2/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCommonLanguageInclude.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeDependentOption.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeGenericSystem.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeInitializeConfigs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeLanguageInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakePackageConfigHelpers.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeRCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInitialize.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckCSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckIncludeFile.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckLibraryExists.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\CMakeCommonCompilerMacros.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindDoxygen.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageHandleStandardArgs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageMessage.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindThreads.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\GNUInstallDirs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Internal\CheckSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\WindowsPaths.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\WriteBasicConfigVersionFile.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeRCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeSystem.cmake;F:\glfw-3.3.2\cmake_uninstall.cmake.in;F:\glfw-3.3.2\src\glfw3.pc.in;F:\glfw-3.3.2\src\glfw3Config.cmake.in;F:\glfw-3.3.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\glfw-3.3.2\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule F:/glfw-3.3.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -SF:/glfw-3.3.2 -BF:/glfw-3.3.2/build --check-stamp-file F:/glfw-3.3.2/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCommonLanguageInclude.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeDependentOption.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeGenericSystem.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeInitializeConfigs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeLanguageInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakePackageConfigHelpers.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeRCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInitialize.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckCSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckIncludeFile.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckLibraryExists.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\CMakeCommonCompilerMacros.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindDoxygen.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageHandleStandardArgs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageMessage.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindThreads.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\GNUInstallDirs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Internal\CheckSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\WindowsPaths.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\WriteBasicConfigVersionFile.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeRCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeSystem.cmake;F:\glfw-3.3.2\cmake_uninstall.cmake.in;F:\glfw-3.3.2\src\glfw3.pc.in;F:\glfw-3.3.2\src\glfw3Config.cmake.in;F:\glfw-3.3.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\glfw-3.3.2\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule F:/glfw-3.3.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+F:\cmake-3.19.1-win32-x86\bin\cmake.exe -SF:/glfw-3.3.2 -BF:/glfw-3.3.2/build --check-stamp-file F:/glfw-3.3.2/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeCommonLanguageInclude.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeDependentOption.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeGenericSystem.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeInitializeConfigs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeLanguageInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakePackageConfigHelpers.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeRCInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInformation.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CMakeSystemSpecificInitialize.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckCSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckIncludeFile.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\CheckLibraryExists.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\CMakeCommonCompilerMacros.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Compiler\MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindDoxygen.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageHandleStandardArgs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindPackageMessage.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\FindThreads.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\GNUInstallDirs.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Internal\CheckSourceCompiles.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC-C.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows-MSVC.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\Windows.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\Platform\WindowsPaths.cmake;F:\cmake-3.19.1-win32-x86\share\cmake-3.19\Modules\WriteBasicConfigVersionFile.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeRCCompiler.cmake;F:\glfw-3.3.2\build\CMakeFiles\3.19.1\CMakeSystem.cmake;F:\glfw-3.3.2\cmake_uninstall.cmake.in;F:\glfw-3.3.2\src\glfw3.pc.in;F:\glfw-3.3.2\src\glfw3Config.cmake.in;F:\glfw-3.3.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\glfw-3.3.2\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="F:\glfw-3.3.2\build\CMakeFiles\uninstall">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="F:\glfw-3.3.2\build\ZERO_CHECK.vcxproj">
+      <Project>{95469612-A031-3DA7-96E7-D325CE0BB1B7}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
