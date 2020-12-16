@@ -10,19 +10,59 @@
 #include "CommonFunction.h"
 #include "Shader.h"
 #include "stb_imageImplement.h"
+#include "Camera.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+float deltaTime = 0.0f; //时间差变量, 储存渲染上一帧所用的时间, 速度乘以deltaTime值会相应平衡而不受帧率影响
+float lastFrame = 0.0f; // 上一帧的时间
+float lastX = SCR_WIDTH / 2, lastY = SCR_HEIGHT / 2;
+
+Camera* camera = nullptr;
+
+bool firstMouse = true;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 
+//@desc: 输入监听
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        if (camera != nullptr) camera->ProcessKeyboard(FORWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        if (camera != nullptr) camera->ProcessKeyboard(BACKWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        if (camera != nullptr) camera->ProcessKeyboard(LEFT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        if (camera != nullptr) camera->ProcessKeyboard(RIGHT, deltaTime);
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) 
+{
+    if (firstMouse) // 这个bool变量初始时是设定为true的
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
+    lastX = xpos;
+    lastY = ypos;
+
+    camera->ProcessMouseMovement(xoffset, yoffset, deltaTime);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    camera->ProcessMouseScroll(yoffset);
 }
 
 unsigned int GenerateVAO(float * vertices, int verticeslen, unsigned int * indices, int indicesLen, int iStride) {
@@ -107,6 +147,14 @@ int main()
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glEnable(GL_DEPTH_TEST);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetScrollCallback(window, scroll_callback);
+
+    //----------------------------------
+    // 创建摄像机
+    //----------------------------------
+    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
     //----------------------------------
     // shader
@@ -189,6 +237,11 @@ int main()
     //渲染循环
     while (!glfwWindowShouldClose(window))
     {
+        //刷新每帧耗时
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         //检查输入
         processInput(window);
 
@@ -206,19 +259,17 @@ int main()
 
         //模型矩阵
         glm::mat4 model;
-        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+        //model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
         //观察矩阵
-        glm::mat4 view;
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); //我们将矩阵向我们要进行移动场景的反方向移动
+        glm::mat4 cameraView;
+        //创建一个LookAt矩阵，我们可以把它当作我们的观察矩阵
+        cameraView = glm::lookAt(camera->Position, camera->Position + camera->Front, camera->Up);
         //投影矩阵
         glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        unsigned int transformLoc = glGetUniformLocation(shaderClass->ID, "model");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE/*是否交换矩阵的行和列*/, glm::value_ptr(model));
-        transformLoc = glGetUniformLocation(shaderClass->ID, "view");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(view));
-        transformLoc = glGetUniformLocation(shaderClass->ID, "projection");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        projection = glm::perspective(glm::radians(camera->Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        shaderClass->setMat4("model", model);
+        shaderClass->setMat4("view", cameraView);
+        shaderClass->setMat4("projection", projection);
 
         shaderClass->use();
         glBindVertexArray(VAO);

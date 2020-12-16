@@ -92,11 +92,22 @@ void Shader::setBool(const std::string& name, bool value) const
 {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
+
 void Shader::setInt(const std::string& name, int value) const
 {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
+
 void Shader::setFloat(const std::string& name, float value) const
 {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+
+//@desc: 把变换矩阵传给着色器
+void Shader::setMat4(const std::string& name, glm::mat4 value) const
+{
+    //第一个参数，它是uniform的位置值
+    //第二个参数告诉OpenGL我们将要发送多少个矩阵，这里是1
+    //第三个参数询问我们我们是否希望对我们的矩阵进行置换(Transpose)
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE/*是否交换矩阵的行和列*/, glm::value_ptr(value));
 }
