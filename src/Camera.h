@@ -1,6 +1,11 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
+#include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 const float CAMERASPEED = 2.0f; // adjust accordingly
 const float PITCH = 0.0f; //ºÍy¼Ð½Ç
 const float YAW = -90.0f; //ºÍz¼Ð½Ç
@@ -31,9 +36,15 @@ public:
     // camera options
     float Zoom;
 
+    static Camera* getInstence();
+
+    Camera() : Front(glm::vec3(0.0f, 0.0f, -1.0f)), Zoom(FOV)
+    {
+
+    }
+
     // constructor with vectors
-    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) 
-        : Front(glm::vec3(0.0f, 0.0f, -1.0f)),  Zoom(FOV)
+    void CameraInit(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) 
     {
         Position = position;
         WorldUp = up;
@@ -42,8 +53,7 @@ public:
         updateCameraVectors();
     }
     // constructor with scalar values
-    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : 
-        Front(glm::vec3(0.0f, 0.0f, -1.0f)), Zoom(FOV)
+    void CameraInit(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
     {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
@@ -73,7 +83,7 @@ public:
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-    void ProcessMouseMovement(float xoffset, float yoffset, float deltaTime, GLboolean constrainPitch = true)
+    void ProcessMouseMovement(float xoffset, float yoffset, float deltaTime, unsigned char constrainPitch = true)
     {
         xoffset = xoffset * SENSITIVITY * deltaTime;
         yoffset = yoffset * SENSITIVITY * deltaTime;
@@ -105,6 +115,7 @@ public:
     }
 
 private:
+
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors()
     {

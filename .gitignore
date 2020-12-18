@@ -2,14 +2,5 @@
 .vs/OpenGLLearn/v16/.suo
 .vs/OpenGLLearn/v16/Browse.VC.db
 .vs/OpenGLLearn/v16/Browse.VC.opendb
-.vs/OpenGLLearn/v16/ipch/AutoPCH/5c0a1f158cb9af00/HELLOOPENGL.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/a7a5af82dab9386e/HELLOOPENGL.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/e007746ffcb18800/GLAD.ipch
 .vs/OpenGLLearn/v14/.suo
-.vs/OpenGLLearn/v16/ipch/AutoPCH/53550aaf895e3ca2/COMMONFUNCTION.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/62930f5d039573e2/COMMONFUNCTION.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/62aad95d03a9aa01/COMMONFUNCTION.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/7dff900445b59fac/SHADER.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/76a263f3314ce64/STB_IMAGEIMPLEMENT.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/506912a4cc1b8d18/COMMON.ipch
-.vs/OpenGLLearn/v16/ipch/AutoPCH/dc6a2059242f2ffc/EXT.ipch
+*.ipch

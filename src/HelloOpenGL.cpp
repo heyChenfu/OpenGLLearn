@@ -3,23 +3,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <Windows.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include "CommonFunction.h"
+#include "Common.h"
 #include "Shader.h"
-#include "stb_imageImplement.h"
-#include "Camera.h"
-
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-float deltaTime = 0.0f; //时间差变量, 储存渲染上一帧所用的时间, 速度乘以deltaTime值会相应平衡而不受帧率影响
-float lastFrame = 0.0f; // 上一帧的时间
-float lastX = SCR_WIDTH / 2, lastY = SCR_HEIGHT / 2;
-
-Camera* camera = nullptr;
 
 bool firstMouse = true;
 
@@ -28,47 +14,31 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-//@desc: 输入监听
-void processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-    
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        if (camera != nullptr) camera->ProcessKeyboard(FORWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        if (camera != nullptr) camera->ProcessKeyboard(BACKWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        if (camera != nullptr) camera->ProcessKeyboard(LEFT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        if (camera != nullptr) camera->ProcessKeyboard(RIGHT, deltaTime);
-}
-
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) 
 {
     if (firstMouse) // 这个bool变量初始时是设定为true的
     {
-        lastX = xpos;
-        lastY = ypos;
+        Common::lastX = xpos;
+        Common::lastY = ypos;
         firstMouse = false;
     }
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
-    lastX = xpos;
-    lastY = ypos;
+    float xoffset = xpos - Common::lastX;
+    float yoffset = Common::lastY - ypos; // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
+    Common::lastX = xpos;
+    Common::lastY = ypos;
 
-    camera->ProcessMouseMovement(xoffset, yoffset, deltaTime);
+    Camera::getInstence()->ProcessMouseMovement(xoffset, yoffset, Common::deltaTime);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    camera->ProcessMouseScroll(yoffset);
+    Camera::getInstence()->ProcessMouseScroll(yoffset);
 }
 
 unsigned int GenerateVAO(float * vertices, int verticeslen, unsigned int * indices, int indicesLen, int iStride) {
     //顶点缓冲对象(Vertex Buffer Objects, VBO)，它会在GPU内存(通常被称为显存)中储存大量顶点
     //顶点数组对象(Vertex Array Object, VAO)可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中
-    //索引缓冲对象 (Element Buffer Objectss)
+    //索引缓冲对象 (Element Buffer Objects) 储存顶点的索引, 设定绘制这些顶点的顺序。使用glDrawElements时, 会使用当前绑定的索引缓冲对象中的索引进行绘制
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO); //生成一个VAO对象
     glGenBuffers(1, &VBO);
@@ -96,56 +66,12 @@ unsigned int GenerateVAO(float * vertices, int verticeslen, unsigned int * indic
     return VAO;
 }
 
-unsigned int GenerateTexture(std::string sTexturePath) {
-    unsigned int texture = 0;
-    glGenTextures(1/*生成的纹理数目*/, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    //加载图片
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); //OpenGL要求y轴0.0坐标是在图片的底部的，但是图片的y轴0.0坐标通常在顶部
-    unsigned char* data = stbi_load(sTexturePath.c_str(), &width, &height, &nrChannels, 0);
-    if (data == nullptr)
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    else {
-        //载入的图片数据
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D); //为当前绑定的纹理自动生成所有需要的多级渐远纹理
-        //释放图像的内存是一个很好的习惯
-        stbi_image_free(data);
-    }
-    return texture;
-}
-
-int main()
+HelloOpenGL::HelloOpenGL()
 {
     //-----------------------------------
     // glfw 窗口创建
     //-----------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-    glEnable(GL_DEPTH_TEST);
+    GLFWwindow* window = Common::CreateGLFWWindow();
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -154,7 +80,7 @@ int main()
     //----------------------------------
     // 创建摄像机
     //----------------------------------
-    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    Camera::getInstence()->CameraInit(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
     //----------------------------------
     // shader
@@ -226,9 +152,9 @@ int main()
     //生成纹理
     //----------------------------------
     //创建第一个纹理
-    unsigned int texture1 = GenerateTexture("res/container.jpg");
+    unsigned int texture1 = Common::GenerateTexture("res/container.jpg");
     //创建第二个纹理
-    unsigned int texture2 = GenerateTexture("res/awesomeface.jpg");
+    unsigned int texture2 = Common::GenerateTexture("res/awesomeface.jpg");
     //设置采样
     shaderClass->use(); // 不要忘记在设置uniform变量之前激活着色器程序！
     shaderClass->setInt("texture1", 0);
@@ -239,11 +165,11 @@ int main()
     {
         //刷新每帧耗时
         float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        Common::deltaTime = currentFrame - Common::lastFrame;
+        Common::lastFrame = currentFrame;
 
         //检查输入
-        processInput(window);
+        Common::ProcessInput(Camera::getInstence(), window);
 
         //清屏
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -259,14 +185,15 @@ int main()
 
         //模型矩阵
         glm::mat4 model;
-        //model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+        //model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f)/*旋转角度*/, glm::vec3(0.5f, 1.0f, 0.0f)/*旋转轴*/);
         //观察矩阵
         glm::mat4 cameraView;
         //创建一个LookAt矩阵，我们可以把它当作我们的观察矩阵
-        cameraView = glm::lookAt(camera->Position, camera->Position + camera->Front, camera->Up);
+        cameraView = glm::lookAt(
+            Camera::getInstence()->Position, Camera::getInstence()->Position + Camera::getInstence()->Front, Camera::getInstence()->Up);
         //投影矩阵
         glm::mat4 projection;
-        projection = glm::perspective(glm::radians(camera->Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(Camera::getInstence()->Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         shaderClass->setMat4("model", model);
         shaderClass->setMat4("view", cameraView);
         shaderClass->setMat4("projection", projection);
@@ -283,5 +210,5 @@ int main()
 
     //删除分配的所有资源
     glfwTerminate();
-    return 0;
+    return;
 }

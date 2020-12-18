@@ -1,12 +1,17 @@
-﻿  HelloOpenGL.cpp
+﻿  HelloLight.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
 F:\glfw-3.3.2\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(51,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(52,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(55,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(56,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(57,13): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(58,13): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(65,32): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(241,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloLight.cpp(110,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  HelloOpenGL.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+F:\glfw-3.3.2\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(21,25): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(22,25): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(25,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(26,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(27,21): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(28,21): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(35,47): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloOpenGL.cpp(167,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  正在生成代码...
   OpenGLLearn.vcxproj -> G:\CppProject\OpenGLLearn\Debug\OpenGLLearn.exe

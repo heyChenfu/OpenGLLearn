@@ -141,12 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Common.cpp" />
     <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\HelloLight.cpp" />
     <ClCompile Include="src\HelloOpenGL.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\CommonFunction.h" />
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Common.h" />
+    <ClInclude Include="src\HelloLight.h" />
     <ClInclude Include="src\HelloOpenGL.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\stb_image.h" />
