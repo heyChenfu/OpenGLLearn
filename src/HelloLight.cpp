@@ -32,47 +32,48 @@ HelloLight::HelloLight() {
     //设置顶点数据(和缓冲区)和配置顶点属性
     //----------------------------------
     float vertices[] = {
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
+    //顶点                   //法线
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-        -0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f, -0.5f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-        -0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO); //生成一个VAO对象
@@ -84,23 +85,27 @@ HelloLight::HelloLight() {
     // 设置顶点属性指针
     char pointerIndex = 0;
     //链接顶点属性
-    glVertexAttribPointer(pointerIndex, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float)/*步长,连续的顶点属性组之间的间隔*/, (void*)0);
+    glVertexAttribPointer(pointerIndex, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float)/*步长,连续的顶点属性组之间的间隔*/, (void*)0);
     glEnableVertexAttribArray(pointerIndex); //启用指定属性, 在顶点着色器中访问逐顶点的属性数据
+    //链接法线属性
+    glVertexAttribPointer(++pointerIndex, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(pointerIndex * 3 * sizeof(float)));
+    glEnableVertexAttribArray(pointerIndex);
     //解除绑定
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
     //----------------------------------
     // 光源
     //----------------------------------
-        //创建光源立方体
-    glm::vec3 lightPos(1.0f, 1.0f, 2.0f);
+    //创建光源立方体
+    glm::vec3 lightPos(0.5f, 0.5f, 2.0f);
+    glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
     unsigned int lightVAO;
     glGenVertexArrays(1, &lightVAO);
     glBindVertexArray(lightVAO);
     //使用现有的VBO数据
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     // 设置灯立方体的顶点属性（对我们的灯来说仅仅只有位置数据）
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     //渲染循环
@@ -118,6 +123,13 @@ HelloLight::HelloLight() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //清除颜色和深度缓冲
 
+        //变化的光源颜色
+        lightColor.x = sin(glfwGetTime() * 2.0f);
+        lightColor.y = sin(glfwGetTime() * 0.7f);
+        lightColor.z = sin(glfwGetTime() * 1.3f);
+        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // 降低影响
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // 很低的影响
+
         //模型矩阵
         glm::mat4 model;
         //观察矩阵
@@ -129,7 +141,16 @@ HelloLight::HelloLight() {
         shaderClass->setMat4("model", model);
         shaderClass->setMat4("view", cameraView);
         shaderClass->setMat4("projection", projection);
-        shaderClass->setVec3("lightColor", 0, 0.5f, 0);
+        shaderClass->setVec3("viewPos", Camera::getInstence()->Position);
+        shaderClass->setVec3("lightPos", lightPos);
+        shaderClass->setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+        shaderClass->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+        shaderClass->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+        shaderClass->setFloat("material.shininess", 32.0f);
+        shaderClass->setVec3("light.ambient", ambientColor);
+        shaderClass->setVec3("light.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
+        shaderClass->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -142,6 +163,7 @@ HelloLight::HelloLight() {
         lightShaderClass->setMat4("model", lightModel);
         lightShaderClass->setMat4("view", cameraView);
         lightShaderClass->setMat4("projection", projection);
+        lightShaderClass->setVec3("lightColor", lightColor);
         glBindVertexArray(lightVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 

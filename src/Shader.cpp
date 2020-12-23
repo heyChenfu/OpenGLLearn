@@ -108,6 +108,11 @@ void Shader::setVec3(const std::string& name, float value1, float value2, float 
     glUniform3f(glGetUniformLocation(ID, name.c_str()), value1, value2, value3);
 }
 
+void Shader::setVec3(const std::string& name, glm::vec3 value) const
+{
+    glUniform3f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
+}
+
 //@desc: 把变换矩阵传给着色器
 void Shader::setMat4(const std::string& name, glm::mat4 value) const
 {
