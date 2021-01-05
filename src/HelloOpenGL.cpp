@@ -53,7 +53,7 @@ unsigned int GenerateVAO(float * vertices, int verticeslen, unsigned int * indic
     // 设置顶点属性指针
     char pointerIndex = 0;
     //链接顶点属性
-    glVertexAttribPointer(pointerIndex, 3, GL_FLOAT, GL_FALSE, iStride * sizeof(float)/*步长,连续的顶点属性组之间的间隔*/, (void*)0);
+    glVertexAttribPointer(pointerIndex, 3, GL_FLOAT, GL_FALSE, iStride * sizeof(float)/*步长,连续的顶点属性组之间的间隔*/, (void*)0); //设置的顶点属性配置
     glEnableVertexAttribArray(pointerIndex); //启用指定属性, 在顶点着色器中访问逐顶点的属性数据
     // 颜色属性
     //glVertexAttribPointer(++pointerIndex, 3, GL_FLOAT, GL_FALSE, iStride * sizeof(float), (void*)(pointerIndex * 3 * sizeof(float)));

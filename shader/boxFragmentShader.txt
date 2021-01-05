@@ -1,9 +1,9 @@
 #version 330 core
+out vec4 FragColor;
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+    sampler2D diffuse;
+    sampler2D specular;
     float shininess;
 };
 
@@ -17,20 +17,18 @@ struct Light {
 
 in vec3 FragPos;
 in vec3 Normal;
+in vec2 TexCoords;
 
-out vec4 FragColor;
-
-uniform Material material; //材质
+uniform Material material;
 uniform Light light; //光照属性
 uniform vec3 viewPos; //摄像机位置
-uniform vec3 lightPos; //光源位置
 
 void main()
 {
 	//单位法向量
 	vec3 nor = normalize(Normal);
 	//计算光源向量
-	vec3 lightDir = normalize(lightPos - FragPos);
+	vec3 lightDir = normalize(light.position - FragPos);
 	//计算光源和法向量夹角cos值
 	float diff = max(dot(nor, lightDir), 0);
 
@@ -42,9 +40,9 @@ void main()
 	float spec = pow(max(dot(viewDir, reflectDir), 0), material.shininess); //高光的反光度
 
 	//设置phong光照分量
-	vec3 ambient  = light.ambient * material.ambient;
-	vec3 diffuse  = light.diffuse * (diff * material.diffuse);
-	vec3 specular = light.specular * (spec * material.specular);
+	vec3 diffuse  = light.diffuse * diff * texture(material.diffuse, TexCoords).rgb; 
+	vec3 ambient  = light.ambient * texture(material.diffuse, TexCoords).rgb;
+	vec3 specular = light.specular * spec * texture(material.specular, TexCoords).rgb;
 
 	//最终颜色
 	vec3 result = ambient + diffuse + specular;
