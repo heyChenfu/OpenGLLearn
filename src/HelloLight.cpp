@@ -75,6 +75,27 @@ HelloLight::HelloLight() {
                 -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
                 -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
     };
+    //所有几何体位置
+    glm::vec3 cubePositions[] = {
+        glm::vec3(0.0f,  0.0f,  0.0f),
+        glm::vec3(2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3(1.3f, -2.0f, -2.5f),
+        glm::vec3(1.5f,  2.0f, -2.5f),
+        glm::vec3(1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
+    };
+    //所有点光源位置
+    glm::vec3 pointLightPositions[] = {
+        glm::vec3(0.7f,  0.2f,  2.0f),
+        glm::vec3(2.3f, -3.3f, -4.0f),
+        glm::vec3(-4.0f,  2.0f, -12.0f),
+        glm::vec3(0.0f,  0.0f, -3.0f)
+    };
+
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO); //生成一个VAO对象
     glGenBuffers(1, &VBO);
@@ -102,7 +123,7 @@ HelloLight::HelloLight() {
     // 光源
     //----------------------------------
     //创建光源立方体
-    glm::vec3 lightPos(0.5f, 0.5f, 2.0f);
+    //glm::vec3 lightPos(0.5f, 0.5f, 2.0f);
     glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
     unsigned int lightVAO;
     glGenVertexArrays(1, &lightVAO);
@@ -144,14 +165,14 @@ HelloLight::HelloLight() {
         glBindTexture(GL_TEXTURE_2D, texture2);
 
         //变化的光源颜色
-        lightColor.x = sin(glfwGetTime() * 2.0f);
-        lightColor.y = sin(glfwGetTime() * 0.7f);
-        lightColor.z = sin(glfwGetTime() * 1.3f);
+        //lightColor.x = sin(glfwGetTime() * 2.0f);
+        //lightColor.y = sin(glfwGetTime() * 0.7f);
+        //lightColor.z = sin(glfwGetTime() * 1.3f);
         glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // 降低影响
         glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // 很低的影响
 
         //模型矩阵
-        glm::mat4 model;
+        //glm::mat4 model;
         //观察矩阵
         glm::mat4 cameraView = Camera::getInstence()->GetViewMatrix();
         //投影矩阵
@@ -159,24 +180,46 @@ HelloLight::HelloLight() {
             (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
         shaderClass->use();
-        shaderClass->setMat4("model", model);
         shaderClass->setMat4("view", cameraView);
         shaderClass->setMat4("projection", projection);
         shaderClass->setVec3("viewPos", Camera::getInstence()->Position);
         shaderClass->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         shaderClass->setFloat("material.shininess", 32.0f);
-        shaderClass->setVec3("light.ambient", ambientColor);
-        shaderClass->setVec3("light.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
-        shaderClass->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-        shaderClass->setVec3("light.position", lightPos);
+        //设置方向光
+        shaderClass->setVec3("dirLight.ambient", ambientColor);
+        shaderClass->setVec3("dirLight.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
+        shaderClass->setVec3("dirLight.specular", 1.0f, 1.0f, 1.0f);
+        shaderClass->setVec3("dirLight.direction", - 0.2f, -1.0f, -0.3f);
+        //设置点光
+        for (int i = 0; i < sizeof(pointLightPositions) / sizeof(pointLightPositions[0]); i++) {
+            char str[20];
+            sprintf_s(str, "pointLights[%d]", i);
+            std::string variableName = std::string(str);
+            shaderClass->setVec3(variableName + ".position", pointLightPositions[i]);
+            shaderClass->setVec3(variableName + ".ambient", 0.05f, 0.05f, 0.05f);
+            shaderClass->setVec3(variableName + ".diffuse", 0.8f, 0.8f, 0.8f);
+            shaderClass->setVec3(variableName + ".specular", 1.0f, 1.0f, 1.0f);
+            shaderClass->setFloat(variableName + ".constant", 1.0f);
+            shaderClass->setFloat(variableName + ".linear", 0.09);
+            shaderClass->setFloat(variableName + ".quadratic", 0.032);
+        }
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        for (unsigned int i = 0; i < 10; i++)
+        {
+            glm::mat4 model;
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20.0f * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            shaderClass->setMat4("model", model);
+
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         //绘制光源
         glm::mat4 lightModel; //灯光位置
-        lightModel = glm::translate(lightModel, lightPos);
+        lightModel = glm::translate(lightModel, pointLightPositions[0]);
         lightModel = glm::scale(lightModel, glm::vec3(0.2f));
         lightShaderClass->use();
         lightShaderClass->setMat4("model", lightModel);
