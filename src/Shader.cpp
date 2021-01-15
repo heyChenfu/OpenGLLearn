@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath){
+Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath){
     // 1. 从文件路径中获取顶点/片段着色器
     std::string vertexCode;
     std::string fragmentCode;
@@ -81,6 +81,10 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath){
     //把着色器对象链接到程序对象以后, 删除着色器对象, 不再需要它们了
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
+}
+
+Shader::~Shader(){
 
 }
 

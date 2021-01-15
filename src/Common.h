@@ -28,6 +28,8 @@ public:
     static unsigned int GenerateTexture(std::string sTexturePath);
     //输入监听
     static void ProcessInput(Camera* cam, GLFWwindow* window);
+    //
+    static unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
 
     static float deltaTime; //时间差变量, 储存渲染上一帧所用的时间, 速度乘以deltaTime值会相应平衡而不受帧率影响
     static float lastFrame; // 上一帧的时间

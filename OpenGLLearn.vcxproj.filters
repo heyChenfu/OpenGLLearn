@@ -36,6 +36,15 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelloModel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\HelloOpenGL.h">
@@ -57,6 +66,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\filesystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
