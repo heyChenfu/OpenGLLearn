@@ -63,7 +63,8 @@ unsigned int Common::GenerateTexture(std::string sTexturePath) {
     glBindTexture(GL_TEXTURE_2D, texture);
     //加载图片
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); //OpenGL要求y轴0.0坐标是在图片的底部的，但是图片的y轴0.0坐标通常在顶部
+    //OpenGL要求y轴0.0坐标是在图片的底部的，但是图片的y轴0.0坐标通常在顶部
+    stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load(sTexturePath.c_str(), &width, &height, &nrChannels, 0);
     if (data == nullptr)
     {
@@ -77,6 +78,48 @@ unsigned int Common::GenerateTexture(std::string sTexturePath) {
         stbi_image_free(data);
     }
     return texture;
+}
+
+unsigned int Common::loadCubemap(std::vector<std::string> faces)
+{
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true);
+    for (unsigned int i = 0; i < faces.size(); i++)
+    {
+        unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            //遍历整个纹理目标
+            //GL_TEXTURE_CUBE_MAP_POSITIVE_X 	右
+            //GL_TEXTURE_CUBE_MAP_NEGATIVE_X 	左
+            //GL_TEXTURE_CUBE_MAP_POSITIVE_Y 	上
+            //GL_TEXTURE_CUBE_MAP_NEGATIVE_Y 	下
+            //GL_TEXTURE_CUBE_MAP_POSITIVE_Z 	后
+            //GL_TEXTURE_CUBE_MAP_NEGATIVE_Z 	前
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+                );
+            stbi_image_free(data);
+        }
+        else
+        {
+            std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+            stbi_image_free(data);
+        }
+    }
+    //设置纹理环绕和过滤方式
+    /*glTexParmeteri()函数来确定如何把纹理象素映射成像素。WRAP参数会决定，当纹理坐标超出[0,1]范围时的纹理采样方式*/
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    return textureID;
 }
 
 //@desc: 输入监听

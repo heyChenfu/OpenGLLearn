@@ -45,6 +45,9 @@
     <ClCompile Include="src\HelloModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\HelloCubemap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\HelloOpenGL.h">
@@ -78,6 +81,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\filesystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelloCubemap.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #define COMMON_H
 
 #include <iostream>
+#include <vector>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -26,6 +27,8 @@ public:
     static GLenum glCheckError_(const char* file, int line);
     //生成纹理
     static unsigned int GenerateTexture(std::string sTexturePath);
+    //加载Cubmap
+    static unsigned int loadCubemap(std::vector<std::string> faces);
     //输入监听
     static void ProcessInput(Camera* cam, GLFWwindow* window);
     //
