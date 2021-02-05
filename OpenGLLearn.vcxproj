@@ -146,6 +146,8 @@
     <ClCompile Include="src\Common.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\HelloCubemap.cpp" />
+    <ClCompile Include="src\HelloGeometryShader.cpp" />
+    <ClCompile Include="src\HelloInstancing.cpp" />
     <ClCompile Include="src\HelloLight.cpp" />
     <ClCompile Include="src\HelloModel.cpp" />
     <ClCompile Include="src\HelloOpenGL.cpp" />
@@ -159,6 +161,8 @@
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\filesystem.h" />
     <ClInclude Include="src\HelloCubemap.h" />
+    <ClInclude Include="src\HelloGeometryShader.h" />
+    <ClInclude Include="src\HelloInstancing.h" />
     <ClInclude Include="src\HelloLight.h" />
     <ClInclude Include="src\HelloModel.h" />
     <ClInclude Include="src\HelloOpenGL.h" />

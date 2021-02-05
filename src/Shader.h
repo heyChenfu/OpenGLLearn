@@ -10,7 +10,7 @@
 class Shader
 {
 public:
-	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
+	Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath = "");
 	~Shader();
 	//¼¤»î
 	void use();
@@ -18,6 +18,8 @@ public:
 	void setBool(const std::string& name, bool value) const;
 	void setInt(const std::string& name, int value) const;
 	void setFloat(const std::string& name, float value) const;
+	void setVec2(const std::string& name, float value1, float value2) const;
+	void setVec2(const std::string& name, glm::vec2) const;
 	void setVec3(const std::string& name, float value1, float value2, float value3) const;
 	void setVec3(const std::string& name, glm::vec3) const;
 	void setMat4(const std::string& name, glm::mat4) const;

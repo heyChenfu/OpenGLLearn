@@ -1,3 +1,10 @@
-﻿  main.cpp
-LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+﻿  HelloInstancing.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+F:\glfw-3.3.2\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
+G:\CppProject\OpenGLLearn\src\HelloInstancing.cpp(41,46): warning C4316: “glm::tmat4x4<float,glm::highp>”: 在堆上分配的对象可能不是对齐 16
+G:\CppProject\OpenGLLearn\src\HelloInstancing.cpp(42,26): warning C4244: “参数”: 从“double”转换到“unsigned int”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloInstancing.cpp(59,25): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloInstancing.cpp(63,28): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+G:\CppProject\OpenGLLearn\src\HelloInstancing.cpp(83,36): warning C4018: “<”: 有符号/无符号不匹配
+G:\CppProject\OpenGLLearn\src\HelloInstancing.cpp(114,32): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
   OpenGLLearn.vcxproj -> G:\CppProject\OpenGLLearn\Debug\OpenGLLearn.exe

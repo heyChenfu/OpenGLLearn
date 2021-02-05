@@ -30,12 +30,14 @@ public:
     /*  函数  */
     Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
     void Draw(Shader shader);
+    void DrawInstanced(Shader shader, int amount);
 
-private:
     /*  渲染数据  */
     unsigned int VAO, VBO, EBO;
+private:
     /*  函数  */
     void setupMesh();
+    void BindTexture(Shader shader);
 };
 
 #endif

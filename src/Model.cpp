@@ -13,6 +13,25 @@ void Model::Draw(Shader shader)
         meshes[i].Draw(shader);
 }
 
+void Model::DrawInstanced(Shader shader, int amount)
+{
+    for (unsigned int i = 0; i < meshes.size(); i++)
+        meshes[i].DrawInstanced(shader, amount);
+}
+
+int Model::GetMeshesCount()
+{
+    return meshes.size();
+}
+
+unsigned int Model::GetVAO(int meshIdx)
+{
+    if (meshIdx >= 0 && meshIdx < meshes.size()) {
+        return meshes[meshIdx].VAO;
+    }
+    return 0;
+}
+
 void Model::loadModel(string path)
 {
     Assimp::Importer import;

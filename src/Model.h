@@ -11,6 +11,9 @@ public:
     /*  函数   */
     Model(string path);
     void Draw(Shader shader);
+    void DrawInstanced(Shader shader, int amount);
+    int GetMeshesCount();
+    unsigned int GetVAO(int meshIdx);
 private:
     /*  模型数据  */
     vector<Mesh> meshes;
