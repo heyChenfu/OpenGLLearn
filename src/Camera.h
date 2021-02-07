@@ -6,7 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const float CAMERASPEED = 2.0f; // adjust accordingly
+const float CAMERASPEED = 3.0f; // adjust accordingly
 const float PITCH = 0.0f; //∫Õyº–Ω«
 const float YAW = -90.0f; //∫Õzº–Ω«
 const float FOV = 45.0f; // ”“∞(Field of View)

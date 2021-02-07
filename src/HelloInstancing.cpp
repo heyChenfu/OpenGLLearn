@@ -20,7 +20,7 @@ namespace HELLO_INSTANCING {
         //----------------------------------
         // 创建摄像机
         //----------------------------------
-        Camera::getInstence()->CameraInit(glm::vec3(0.0f, 0.0f, 100.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        Camera::getInstence()->CameraInit(glm::vec3(0.0f, 25.0f, 60.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -25.0f);
 
         //----------------------------------
         // shader
@@ -40,7 +40,7 @@ namespace HELLO_INSTANCING {
         glm::mat4* modelMatrices;
         modelMatrices = new glm::mat4[amount];
         srand(glfwGetTime()); // 初始化随机种子    
-        float radius = 50.0;
+        float radius = 30.0f;
         float offset = 2.5f;
         for (unsigned int i = 0; i < amount; i++)
         {
