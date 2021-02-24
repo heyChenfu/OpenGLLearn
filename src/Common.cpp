@@ -141,6 +141,10 @@ void Common::ProcessInput(Camera* cam, GLFWwindow* window)
         if (cam != nullptr) cam->ProcessKeyboard(LEFT, Common::deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         if (cam != nullptr) cam->ProcessKeyboard(RIGHT, Common::deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        if (cam != nullptr) cam->ProcessKeyboard(LEFT_UP, Common::deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        if (cam != nullptr) cam->ProcessKeyboard(RIGHT_UP, Common::deltaTime);
 }
 
 unsigned int Common::TextureFromFile(const char* path, const std::string& directory, bool gamma)

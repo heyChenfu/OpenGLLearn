@@ -17,7 +17,9 @@ enum Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    LEFT_UP,
+    RIGHT_UP,
 };
 
 //…„œÒª˙¿‡
@@ -80,6 +82,14 @@ public:
             Position -= Right * velocity;
         if (direction == RIGHT)
             Position += Right * velocity;
+        if (direction == LEFT_UP) {
+            Yaw -= 10 * SENSITIVITY * deltaTime;
+            updateCameraVectors();
+        }
+        if (direction == RIGHT_UP) {
+            Yaw += 10 * SENSITIVITY * deltaTime;
+            updateCameraVectors();
+        }
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.

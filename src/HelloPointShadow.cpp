@@ -1,4 +1,4 @@
-#include "HelloShadowMapping.h"
+#include "HelloPointShadow.h"
 #include <iostream>
 #include <Windows.h>
 #include <direct.h> 
@@ -8,11 +8,11 @@
 #include "Shader.h"
 #include "Model.h"
 
-namespace HELLO_SHADOW_MAPPING {
+namespace HELLO_POINT_SHADOW {
 
     bool firstMouse = true;
 
-    HelloShadowMapping::HelloShadowMapping(){
+    HelloPointShadow::HelloPointShadow(){
         //-----------------------------------
         // glfw 窗口创建
         //-----------------------------------
@@ -20,14 +20,14 @@ namespace HELLO_SHADOW_MAPPING {
         //----------------------------------
         // 创建摄像机
         //----------------------------------
-        Camera::getInstence()->CameraInit(glm::vec3(0.0f, 3.0f, 5.0f), glm::vec3(0.0f, 1.0f, 0.0f), YAW , -25.0f);
+        Camera::getInstence()->CameraInit(glm::vec3(0.0f, 0.0f, 3.0f));
 
         //----------------------------------
         // shader
         //----------------------------------
-        Shader shader("shader/3.1.1.shadow_mappingVS.txt", "shader/3.1.1.shadow_mappingFS.txt");
-        Shader simpleDepthShader("shader/3.1.1.shadow_mapping_depthVS.txt", "shader/3.1.1.shadow_mapping_depthFS.txt");
-        Shader debugDepthQuad("shader/3.1.1.debug_quadVS.txt", "shader/3.1.1.debug_quadFS.txt");
+        Shader shader("shader/3.2.2.point_shadowsVS.txt", "shader/3.2.2.point_shadowsFS.txt");
+        Shader simpleDepthShader("shader/3.2.2.point_shadows_depthVS.txt", 
+            "shader/3.2.2.point_shadows_depthFS.txt", "shader/3.2.2.point_shadows_depthGS.txt");
 
         //----------------------------------
         //设置顶点数据(和缓冲区)和配置顶点属性
@@ -63,20 +63,21 @@ namespace HELLO_SHADOW_MAPPING {
         const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024; //深度贴图尺寸
         unsigned int depthMapFBO;
         glGenFramebuffers(1, &depthMapFBO);
-        // 创建纹理
-        unsigned int depthMap;
-        glGenTextures(1, &depthMap);
-        glBindTexture(GL_TEXTURE_2D, depthMap);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-        GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
-        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor); //设置超出范围时的颜色
+        // 创建cubeMap纹理
+        unsigned int depthCubemap;
+        glGenTextures(1, &depthCubemap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
+        for (unsigned int i = 0; i < 6; ++i)
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, 
+                SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
         // attach depth texture as FBO's depth buffer
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubemap, 0);
         glDrawBuffer(GL_NONE); //显式告诉OpenGL这个帧缓冲对象不会渲染到一个颜色缓冲里
         glReadBuffer(GL_NONE);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -87,9 +88,7 @@ namespace HELLO_SHADOW_MAPPING {
         unsigned int woodTexture = Common::GenerateTexture("res/wood.jpg");
         shader.use();
         shader.setInt("diffuseTexture", 0);
-        shader.setInt("shadowMap", 1);
-        debugDepthQuad.use();
-        debugDepthQuad.setInt("depthMap", 0);
+        shader.setInt("depthMap", 1);
 
         //渲染循环
         while (!glfwWindowShouldClose(window))
@@ -113,51 +112,53 @@ namespace HELLO_SHADOW_MAPPING {
             glm::mat4 projection = glm::perspective(glm::radians(Camera::getInstence()->Zoom), 
                 (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f); //投影矩阵
             //创建光源矩阵
-            glm::vec3 lightPos(-2.0f, 4.0f, -1.0f); //光源位置
-            glm::mat4 lightProjection, lightView, lightSpaceMatrix;
+            glm::vec3 lightPos(0.0f, 0.0f, 0.0f); //光源位置
+            //lightPos.z = sin(glfwGetTime() * 0.5) * 3.0; // move light position over time
             float near_plane = 1.0f, far_plane = 7.5f;
-            lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-            lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-            lightSpaceMatrix = lightProjection * lightView;
-            simpleDepthShader.use();
-            simpleDepthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+            glm::mat4 shadowProj = glm::perspective(glm::radians(90.0f), (float)SHADOW_WIDTH / (float)SHADOW_HEIGHT, near_plane, far_plane);
+            //创建cubemap的六个方向的观察矩阵
+            std::vector<glm::mat4> shadowTransforms;
+            shadowTransforms.push_back(
+                shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+            shadowTransforms.push_back(
+                shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+            shadowTransforms.push_back(
+                shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
+            shadowTransforms.push_back(
+                shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+            shadowTransforms.push_back(
+                shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+            shadowTransforms.push_back(
+                shadowProj * glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+
             //渲染深度贴图
-            glEnable(GL_POLYGON_OFFSET_FILL); //开启深度偏移
-            glPolygonOffset(1.0, 0); //设置深度偏移
-            glCullFace(GL_FRONT); //只需要深度贴图的深度值，对于实体物体无论我们用它们的正面还是背面都没问题
             glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
             glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
             glClear(GL_DEPTH_BUFFER_BIT);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, woodTexture);
-            renderScene(planeVAO, simpleDepthShader);
+            simpleDepthShader.use();
+            for (unsigned int i = 0; i < 6; ++i)
+                simpleDepthShader.setMat4("shadowMatrices[" + std::to_string(i) + "]", shadowTransforms[i]);
+            simpleDepthShader.setFloat("far_plane", far_plane);
+            simpleDepthShader.setVec3("lightPos", lightPos);
+            renderScene(simpleDepthShader);
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
             //渲染场景
-            glDisable(GL_POLYGON_OFFSET_FILL);
             glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glCullFace(GL_BACK); //设回原先的culling face
             shader.use();
             shader.setMat4("projection", projection);
             shader.setMat4("view", cameraView);
             // set light uniforms
-            shader.setVec3("viewPos", Camera::getInstence()->Position);
             shader.setVec3("lightPos", lightPos);
-            shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+            shader.setVec3("viewPos", Camera::getInstence()->Position);
+            shader.setInt("shadows", true); // enable/disable shadows by pressing 'SPACE'
+            shader.setFloat("far_plane", far_plane);
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, woodTexture);
             glActiveTexture(GL_TEXTURE1);
-            glBindTexture(GL_TEXTURE_2D, depthMap);
-            renderScene(planeVAO, shader);
-            //使用深度图渲染
-            /*glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            debugDepthQuad.use();
-            debugDepthQuad.setFloat("near_plane", near_plane);
-            debugDepthQuad.setFloat("far_plane", far_plane);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, depthMap);
-            renderQuad();*/
+            glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
+            renderScene(shader);
 
             glfwSwapBuffers(window); //交换缓冲
             glfwPollEvents();
@@ -169,33 +170,47 @@ namespace HELLO_SHADOW_MAPPING {
     }
 
     // renders the 3D scene
-    void HelloShadowMapping::renderScene(unsigned int VAO, const Shader& shader)
+    void HelloPointShadow::renderScene(const Shader& shader)
     {
-        // floor
+        // room cube
         glm::mat4 model = glm::mat4(1.0f);
+        model = glm::scale(model, glm::vec3(5.0f));
         shader.setMat4("model", model);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDisable(GL_CULL_FACE); // note that we disable culling here since we render 'inside' the cube instead of the usual 'outside' which throws off the normal culling methods.
+        shader.setInt("reverse_normals", 1); // A small little hack to invert normals when drawing cube from the inside so lighting still works.
+        renderCube();
+        shader.setInt("reverse_normals", 0); // and of course disable it
+        glEnable(GL_CULL_FACE);
         // cubes
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
+        model = glm::translate(model, glm::vec3(4.0f, -3.5f, 0.0));
         model = glm::scale(model, glm::vec3(0.5f));
         shader.setMat4("model", model);
         renderCube();
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 1.0));
+        model = glm::translate(model, glm::vec3(2.0f, 3.0f, 1.0));
+        model = glm::scale(model, glm::vec3(0.75f));
+        shader.setMat4("model", model);
+        renderCube();
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-3.0f, -1.0f, 0.0));
         model = glm::scale(model, glm::vec3(0.5f));
         shader.setMat4("model", model);
         renderCube();
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 2.0));
+        model = glm::translate(model, glm::vec3(-1.5f, 1.0f, 1.5));
+        model = glm::scale(model, glm::vec3(0.5f));
+        shader.setMat4("model", model);
+        renderCube();
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-1.5f, 2.0f, -3.0));
         model = glm::rotate(model, glm::radians(60.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
-        model = glm::scale(model, glm::vec3(0.25));
+        model = glm::scale(model, glm::vec3(0.75f));
         shader.setMat4("model", model);
         renderCube();
     }
 
-    void HelloShadowMapping::renderCube() {
+    void HelloPointShadow::renderCube() {
         
         // initialize (if necessary)
         if (cubeVAO == 0)
@@ -266,7 +281,7 @@ namespace HELLO_SHADOW_MAPPING {
         glBindVertexArray(0);
     }
 
-    void HelloShadowMapping::renderQuad()
+    void HelloPointShadow::renderQuad()
     {
         if (quadVAO == 0)
         {

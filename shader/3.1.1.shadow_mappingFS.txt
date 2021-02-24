@@ -25,6 +25,9 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     //float closestDepth = texture(shadowMap, projCoords.xy).r; 
     // 当前片元在光源视角下深度
     float currentDepth = projCoords.z;
+    //使用阴影偏移处理阴影失真问题
+    vec3 lightDir = normalize(lightPos - fs_in.FragPos);
+    float bias = max(0.05 * 1.0 - dot(fs_in.Normal, lightDir), 0.005); //根据表面朝向光线的角度更改偏移量
     //使用PCF技术改善阴影锯齿
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
@@ -34,7 +37,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
         {
             float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
             // 当前片元深度是否比深度图深度要大, 确定这个片段是被光所照射还是被阴影笼罩
-            shadow += currentDepth > pcfDepth ? 1.0 : 0.0;        
+            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
         }    
     }
     shadow /= 9.0;
