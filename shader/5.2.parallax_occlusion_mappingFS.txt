@@ -1,0 +1,86 @@
+#version 330 core
+out vec4 FragColor;
+
+in VS_OUT {
+    vec3 FragPos;
+    vec2 TexCoords;
+    vec3 TangentLightPos;
+    vec3 TangentViewPos;
+    vec3 TangentFragPos;
+} fs_in;
+
+uniform sampler2D diffuseMap;
+uniform sampler2D normalMap;
+uniform sampler2D depthMap;
+
+uniform float height_scale; //视差缩放
+
+vec2 ParallaxMapping(vec2 texCoords, vec3 viewDir)
+{
+    //根据视角动态计算分层数
+    const float minLayers = 8;
+    const float maxLayers = 32;
+    float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0, 0.0, 1.0), viewDir))); //mix使用a在x和y之间进行线性插值
+    //每一层的深度
+    float layerDepth = 1.0 / numLayers;
+    //当前层深度
+    float currentLayerDepth = 0.0;
+    //每一层纹理的变化值
+    vec2 deltaTexCoords = viewDir.xy / viewDir.z * height_scale / numLayers;
+    //起始纹理坐标
+    vec2 currentTexCoords = texCoords;
+    //根据当前纹理坐标采样获得的深度
+    float currentDepthMapValue = texture(depthMap, currentTexCoords).r;
+
+    //循环使用纹理采样深度和当前分层的深度值比较
+    while(currentLayerDepth < currentDepthMapValue)
+    {
+        currentTexCoords -= deltaTexCoords;
+        currentDepthMapValue = texture(depthMap, currentTexCoords).r;
+        currentLayerDepth += layerDepth;
+    }
+
+    //获取前一个纹理坐标点
+    vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+    //最后一个纹理坐标的深度和对应深度层的深度差
+    float afterDepth = currentLayerDepth - currentDepthMapValue;
+    //前一个纹理坐标和对应深度层的深度差
+    float beforeDepth = texture(depthMap, prevTexCoords).r - (currentLayerDepth - layerDepth);
+    //计算深度值权重
+    float weight = afterDepth / (afterDepth + beforeDepth);
+    //根据权重计算最终坐标
+    vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+
+    return finalTexCoords;
+}
+
+void main()
+{           
+    vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
+    
+    //根据深度图重新计算纹理坐标
+    vec2 texCoords = ParallaxMapping(fs_in.TexCoords, viewDir);
+    //纹理坐标超出了0到1的范围进行采样，根据纹理的环绕方式导致了不真实的结果, 当它超出默认纹理坐标范围进行采样的时候就丢弃这个fragment
+    if(texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+        discard;
+
+     // 从法线贴图范围[0,1]获取法线
+    vec3 normal = texture(normalMap, texCoords).rgb;
+    // 将法线向量转换为范围[-1,1]
+    normal = normalize(normal * 2.0 - 1.0);  // this normal is in tangent space
+
+    // 获取漫反射纹理颜色
+    vec3 color = texture(diffuseMap, texCoords).rgb;
+    // ambient
+    vec3 ambient = 0.1 * color;
+    // 漫反射计算
+    vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
+    float diff = max(dot(lightDir, normal), 0.0);
+    vec3 diffuse = diff * color;
+    // 镜面反射计算
+    vec3 halfwayDir = normalize(lightDir + viewDir);  
+    float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+
+    vec3 specular = vec3(0.2) * spec;
+    FragColor = vec4(ambient + diffuse + specular, 1.0);
+}

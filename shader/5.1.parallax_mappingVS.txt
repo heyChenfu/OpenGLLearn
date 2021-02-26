@@ -25,17 +25,13 @@ void main()
     vs_out.FragPos = vec3(model * vec4(aPos, 1.0));   
     vs_out.TexCoords = aTexCoords;
     
-    //将TBN向量变换到世界空间
     mat3 normalMatrix = transpose(inverse(mat3(model)));
-    vec3 T = normalize(normalMatrix * aTangent);
-    vec3 N = normalize(normalMatrix * aNormal);
-    //格拉姆-施密特正交化过程(Gram-Schmidt process), 对TBN向量进行重正交化
-    //T = normalize(T - dot(T, N) * N);
-    //用T和N算出B
-    vec3 B = cross(N, T);
-    
-    //使用TBN矩阵的逆矩阵，这个矩阵可以把世界坐标空间的向量转换到切线坐标空间, 而正交矩阵逆运算和转置运算相同
-    mat3 TBN = transpose(mat3(T, B, N)); 
+    //将TBN向量变换到世界空间
+    vec3 T   = normalize(mat3(model) * aTangent);
+    vec3 B   = normalize(mat3(model) * aBitangent);
+    vec3 N   = normalize(mat3(model) * aNormal);
+    mat3 TBN = transpose(mat3(T, B, N)); //使用TBN矩阵的逆矩阵，这个矩阵可以把世界坐标空间的向量转换到切线坐标空间
+    //将所有相关的世界空间向量转变到切线空间
     vs_out.TangentLightPos = TBN * lightPos;
     vs_out.TangentViewPos  = TBN * viewPos;
     vs_out.TangentFragPos  = TBN * vs_out.FragPos;
