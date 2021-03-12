@@ -117,7 +117,7 @@ unsigned int Common::loadCubemap(std::vector<std::string> faces)
         }
     }
     //设置纹理环绕和过滤方式
-    /*glTexParmeteri()函数来确定如何把纹理象素映射成像素。WRAP参数会决定，当纹理坐标超出[0,1]范围时的纹理采样方式*/
+    /*glTexParmeteri()函数来确定如何把纹理象素映射成像素(纹理环绕和过滤方式)。WRAP参数会决定，当纹理坐标超出[0,1]范围时的纹理采样方式*/
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
