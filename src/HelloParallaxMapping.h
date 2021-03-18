@@ -2,7 +2,7 @@
 #define HELLO_PARALLAX_MAPPING_H
 
 namespace HELLO_PARALLAX_MAPPING {
-	//ÊÓ²ìÌùÍ¼
+	//ÊÓ²îÌùÍ¼
 	class HelloParallaxMapping
 	{
 	public:

@@ -9,6 +9,7 @@
 #include "HelloNormalMapping.h"
 #include "HelloParallaxMapping.h"
 #include "HelloBloom.h"
+#include "HelloDeferredShading.h"
 
 int main() {
 	//HelloOpenGL * hello = new HelloOpenGL();
@@ -19,6 +20,7 @@ int main() {
 	//HELLO_POINT_SHADOW::HelloPointShadow* hello = new HELLO_POINT_SHADOW::HelloPointShadow();
 	//HELLO_NORMAL_MAPPING::HelloNormalMapping* hello = new HELLO_NORMAL_MAPPING::HelloNormalMapping();
 	//HELLO_PARALLAX_MAPPING::HelloParallaxMapping* hello = new HELLO_PARALLAX_MAPPING::HelloParallaxMapping();
-	HELLO_BLOOM::HelloBloom* hello = new HELLO_BLOOM::HelloBloom();
+	//HELLO_BLOOM::HelloBloom* hello = new HELLO_BLOOM::HelloBloom();
+	HELLO_DEFERRED_SHADING::HelloDeferredShading* hello = new HELLO_DEFERRED_SHADING::HelloDeferredShading();
 
 }

@@ -2,7 +2,7 @@
 #define HELLO_BLOOM_H
 
 namespace HELLO_BLOOM {
-	//视察贴图
+	//泛光效果
 	class HelloBloom
 	{
 	public:
